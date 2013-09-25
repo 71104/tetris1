@@ -17,6 +17,9 @@ function Game() {
 		if (!nextPiece.collides(0, 4)) {
 			(currentPiece = nextPiece).insert(gridElement, 0, 4);
 			nextPiece = queueRandomPiece();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -50,8 +53,7 @@ function Game() {
 		if (!currentPiece.step()) {
 			currentPiece.freeze();
 			grid.removeFullLines();
-			setNextPiece();
-			if (!currentPiece) {
+			if (!setNextPiece()) {
 				return false;
 			}
 		}
