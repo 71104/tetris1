@@ -10,7 +10,7 @@ function Piece(descriptor, grid) {
 						elements[i] = {};
 					}
 					elements[i][j] = $('<div>', {
-						'class': descriptor.className
+						'class': 'brick ' + descriptor.className
 					});
 				}
 			}
@@ -25,14 +25,12 @@ function Piece(descriptor, grid) {
 			i1 = parseInt(i1, 10);
 			for (var j1 in matrix[i1]) {
 				j1 = parseInt(j1, 10);
-				if (matrix[i1][j1]) {
-					if ((j + j1 < 0) ||
-						(j + j1 >= columns) ||
-						(i + i1 >= rows) ||
-						grid.brickAt(i + i1, j + j1))
-					{
-						return true;
-					}
+				if ((j + j1 < 0) ||
+					(j + j1 >= columns) ||
+					(i + i1 >= rows) ||
+					grid.brickAt(i + i1, j + j1))
+				{
+					return true;
 				}
 			}
 		}
