@@ -102,10 +102,10 @@ function Piece(descriptor, grid) {
 			i1 = parseInt(i1, 10);
 			for (var j1 in elements[i1]) {
 				j1 = parseInt(j1, 10);
-				if (!newMatrix[i1]) {
-					newMatrix[i1] = {};
+				if (!newMatrix[4 - j1]) {
+					newMatrix[4 - j1] = {};
 				}
-				newMatrix[i1][j1] = elements[4 - j1][i1];
+				newMatrix[4 - j1][i1] = elements[i1][j1];
 			}
 		}
 		if (collides(newMatrix, i, j)) {
@@ -120,7 +120,7 @@ function Piece(descriptor, grid) {
 	this.drop = function () {
 		for (var i1 = i; i1 < rows; i1++) {
 			if (collides(elements, i1 + 1, j)) {
-				reposition(i = i1 + 1, j);
+				reposition(i = i1, j);
 				return;
 			}
 		}
@@ -131,7 +131,7 @@ function Piece(descriptor, grid) {
 			i1 = parseInt(i1, 10);
 			for (var j1 in elements[i1]) {
 				j1 = parseInt(j1, 10);
-				grid.addBrick(elements[i1][j1]);
+				grid.addBrick(i + i1, j + j1, elements[i1][j1]);
 			}
 		}
 	};

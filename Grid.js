@@ -42,7 +42,9 @@ function Grid() {
 				for (var i1 = i; i1 > 0; i1--) {
 					grid[i1] = grid[i1 - 1];
 					grid[i1].forEach(function (brick) {
-						brick.css('top', i1 * 20);
+						if (brick) {
+							brick.css('top', i1 * 20);
+						}
 					});
 				}
 				grid[0] = generateEmptyRow();

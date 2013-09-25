@@ -14,11 +14,10 @@ function Game() {
 	var currentPiece;
 
 	function setNextPiece() {
-		currentPiece = nextPiece;
-		if (!currentPiece.collides(0, 4)) {
-			currentPiece.insert(gridElement, 0, 4);
+		if (!nextPiece.collides(0, 4)) {
+			(currentPiece = nextPiece).insert(gridElement, 0, 4);
+			nextPiece = queueRandomPiece();
 		}
-		nextPiece = queueRandomPiece();
 	}
 
 	setNextPiece();
@@ -50,7 +49,12 @@ function Game() {
 	this.update = function () {
 		if (!currentPiece.step()) {
 			currentPiece.freeze();
-			nextPiece();
+			grid.removeFullLines();
+			setNextPiece();
+			if (!currentPiece) {
+				return false;
+			}
 		}
+		return true;
 	};
 }
