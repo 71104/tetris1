@@ -84,8 +84,9 @@ $(function () {
 		return false;
 	});
 
-	setInterval(function () {
+	var interval = setInterval(function () {
 		if (!game.update()) {
+			clearInterval(interval);
 			alert('Hai perso!');
 		}
 	}, 500);

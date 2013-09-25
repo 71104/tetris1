@@ -17,6 +17,9 @@ function Piece(descriptor, grid) {
 		}
 	})();
 
+	var i = 0;
+	var j = 4;
+
 	function collides(matrix, i, j) {
 		for (var i1 in matrix) {
 			i1 = parseInt(i1, 10);

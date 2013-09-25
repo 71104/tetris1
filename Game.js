@@ -13,13 +13,15 @@ function Game() {
 	var nextPiece = queueRandomPiece();
 	var currentPiece;
 
-	function nextPiece() {
+	function setNextPiece() {
 		currentPiece = nextPiece;
-		currentPiece.insert(gridElement, 0, 4);
+		if (!currentPiece.collides(0, 4)) {
+			currentPiece.insert(gridElement, 0, 4);
+		}
 		nextPiece = queueRandomPiece();
 	}
 
-	nextPiece();
+	setNextPiece();
 
 	this.left = function () {
 		if (currentPiece) {
