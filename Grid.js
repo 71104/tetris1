@@ -15,8 +15,6 @@ function Grid() {
 		}
 	})();
 
-	var element = $('#grid');
-
 	this.brickAt = function (i, j) {
 		return !!grid[i][j];
 	};
