@@ -10,7 +10,7 @@ function Piece(descriptor, grid) {
 			for (var j = 0; j < 4; j++) {
 				if (descriptor.map[i][j]) {
 					elements[i][j] = document.createElement('div');
-					elements[i][j].style.className = 'brick ' + descriptor.className;
+					elements[i][j].className = 'brick ' + descriptor.className;
 				}
 			}
 		}
@@ -40,10 +40,8 @@ function Piece(descriptor, grid) {
 		for (var i1 = 0; i1 < 4; i1++) {
 			for (var j1 = 0; j1 < 4; j1++) {
 				if (elements[i1][j1]) {
-					elements[i1][j1].css({
-						left: (j + j1) * 20,
-						top: (i + i1) * 20
-					});
+					elements[i1][j1].style.left = ((j + j1) * 20) + 'px';
+					elements[i1][j1].style.top = ((i + i1) * 20) + 'px';
 				}
 			}
 		}
@@ -57,10 +55,9 @@ function Piece(descriptor, grid) {
 		for (var i1 = 0; i1 < 4; i1++) {
 			for (var j1 = 0; j1 < 4; j1++) {
 				if (elements[i1][j1]) {
-					element.append(elements[i1][j1].css({
-						left: (j + j1) * 20,
-						top: (i + i1) * 20
-					}));
+					elements[i1][j1].style.left = ((j + j1) * 20) + 'px';
+					elements[i1][j1].style.top = ((i + i1) * 20) + 'px';
+					element.appendChild(elements[i1][j1]);
 				}
 			}
 		}

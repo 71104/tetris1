@@ -1,8 +1,8 @@
 function Game() {
 	var grid = new Grid();
 
-	var gridElement = querySelector('#grid');
-	var overviewElement = querySelector('#overview');
+	var gridElement = document.querySelector('#grid');
+	var overviewElement = document.querySelector('#overview');
 
 	function queueRandomPiece() {
 		var piece = new Piece(descriptors[Math.round(Math.random() * (descriptors.length - 1))], grid);
