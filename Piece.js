@@ -1,17 +1,16 @@
 function Piece(descriptor, grid) {
-	var gridElement = $('#grid');
-
-	var elements = {};
+	var elements = [
+		[null, null, null, null],
+		[null, null, null, null],
+		[null, null, null, null],
+		[null, null, null, null]
+	];
 	(function () {
 		for (var i = 0; i < 4; i++) {
 			for (var j = 0; j < 4; j++) {
 				if (descriptor.map[i][j]) {
-					if (!elements[i]) {
-						elements[i] = {};
-					}
-					elements[i][j] = $('<div>', {
-						'class': 'brick ' + descriptor.className
-					});
+					elements[i][j] = document.createElement('div');
+					elements[i][j].style.className = 'brick ' + descriptor.className;
 				}
 			}
 		}
@@ -21,16 +20,16 @@ function Piece(descriptor, grid) {
 	var j = 4;
 
 	function collides(matrix, i, j) {
-		for (var i1 in matrix) {
-			i1 = parseInt(i1, 10);
-			for (var j1 in matrix[i1]) {
-				j1 = parseInt(j1, 10);
-				if ((j + j1 < 0) ||
-					(j + j1 >= columns) ||
-					(i + i1 >= rows) ||
-					grid.brickAt(i + i1, j + j1))
-				{
-					return true;
+		for (var i1 = 0; i1 < 4; i1++) {
+			for (var j1 = 0; j1 < 4; j1++) {
+				if (matrix[i1][j1]) {
+					if ((j + j1 < 0) ||
+						(j + j1 >= columns) ||
+						(i + i1 >= rows) ||
+						grid.brickAt(i + i1, j + j1))
+					{
+						return true;
+					}
 				}
 			}
 		}
@@ -38,10 +37,8 @@ function Piece(descriptor, grid) {
 	}
 
 	function reposition(i, j) {
-		for (var i1 in elements) {
-			i1 = parseInt(i1, 10);
-			for (var j1 in elements[i1]) {
-				j1 = parseInt(j1, 10);
+		for (var i1 = 0; i1 < 4; i1++) {
+			for (var j1 = 0; j1 < 4; j1++) {
 				if (elements[i1][j1]) {
 					elements[i1][j1].css({
 						left: (j + j1) * 20,
@@ -57,14 +54,14 @@ function Piece(descriptor, grid) {
 	};
 
 	this.insert = function (element, i, j) {
-		for (var i1 in elements) {
-			i1 = parseInt(i1, 10);
-			for (var j1 in elements[i1]) {
-				j1 = parseInt(j1, 10);
-				element.append(elements[i1][j1].css({
-					left: (j + j1) * 20,
-					top: (i + i1) * 20
-				}));
+		for (var i1 = 0; i1 < 4; i1++) {
+			for (var j1 = 0; j1 < 4; j1++) {
+				if (elements[i1][j1]) {
+					element.append(elements[i1][j1].css({
+						left: (j + j1) * 20,
+						top: (i + i1) * 20
+					}));
+				}
 			}
 		}
 	};
@@ -97,15 +94,17 @@ function Piece(descriptor, grid) {
 	};
 
 	this.rotate = function () {
-		var newMatrix = {};
-		for (var i1 in elements) {
-			i1 = parseInt(i1, 10);
-			for (var j1 in elements[i1]) {
-				j1 = parseInt(j1, 10);
-				if (!newMatrix[4 - j1]) {
-					newMatrix[4 - j1] = {};
+		var newMatrix = [
+			[null, null, null, null],
+			[null, null, null, null],
+			[null, null, null, null],
+			[null, null, null, null]
+		];
+		for (var i1 = 0; i1 < 4; i1++) {
+			for (var j1 = 0; j1 < 4; j1++) {
+				if (elements[i1][j1]) {
+					newMatrix[3 - j1][i1] = elements[i1][j1];
 				}
-				newMatrix[4 - j1][i1] = elements[i1][j1];
 			}
 		}
 		if (collides(newMatrix, i, j)) {
@@ -127,11 +126,11 @@ function Piece(descriptor, grid) {
 	};
 
 	this.freeze = function () {
-		for (var i1 in elements) {
-			i1 = parseInt(i1, 10);
-			for (var j1 in elements[i1]) {
-				j1 = parseInt(j1, 10);
-				grid.addBrick(i + i1, j + j1, elements[i1][j1]);
+		for (var i1 = 0; i1 < 4; i1++) {
+			for (var j1 = 0; j1 < 4; j1++) {
+				if (elements[i1][j1]) {
+					grid.addBrick(i + i1, j + j1, elements[i1][j1]);
+				}
 			}
 		}
 	};

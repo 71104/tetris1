@@ -11,7 +11,7 @@ function Grid() {
 
 	(function () {
 		for (var i = 0; i < rows; i++) {
-			grid[i] = generateEmptyRow();
+			grid.push(generateEmptyRow());
 		}
 	})();
 
@@ -41,7 +41,7 @@ function Grid() {
 					grid[i1] = grid[i1 - 1];
 					grid[i1].forEach(function (brick) {
 						if (brick) {
-							brick.css('top', i1 * 20);
+							brick.style.top = (i1 * 20) + 'px';
 						}
 					});
 				}

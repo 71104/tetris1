@@ -59,11 +59,11 @@ var descriptors = [{
 	]
 }];
 
-$(function () {
+window.addEventListener('load', function () {
 	var game = new Game();
 
-	$(window).keydown(function (event) {
-		switch (event.which) {
+	window.addEventListener('keydown', function (event) {
+		switch (event.keyCode) {
 		case 37:
 			game.left();
 			break;
@@ -82,7 +82,7 @@ $(function () {
 		}
 		event.preventDefault();
 		return false;
-	});
+	}, false);
 
 	var interval = setInterval(function () {
 		if (!game.update()) {
@@ -90,4 +90,4 @@ $(function () {
 			alert('Hai perso!');
 		}
 	}, 500);
-});
+}, false);
